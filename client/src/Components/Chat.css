@@ -1,0 +1,113 @@
+*{
+    margin: 0;
+    padding: 0;
+    /* border: 1px solid red; */
+    box-sizing: border-box;
+}
+.main-div
+{
+    width: 85vw;
+    height: 85vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #85586F;
+    border-radius: 10px;
+}
+.header{
+    height: 10vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 25px 10px 15px;
+}
+.header h1{
+}
+
+.patent-body{
+    width: 100%;
+    height: 75vh;
+    display: flex;
+}
+.users-rooms-info-parent-div{
+    flex: 25%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0 20px 0;
+}
+.user-room-info-div{
+    padding: 10px;
+    width: 100%;
+}
+.users-rooms-info-parent-div button{
+    padding: 10px;
+    border-radius: 5px;
+    color: #FFF;
+}
+.users-rooms-info-parent-div h4{
+    margin: 10px 0 10px 0;
+}
+.users-rooms-info-parent-div h5{
+    padding: 0 5px 0 5px;
+}
+.parent-chatting-div{
+    flex: 75%;
+}
+.chat-message-div{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    overflow-y: scroll;
+}
+
+.chat-message-div::-webkit-scrollbar{
+    display: none;
+}
+
+.chat-message-item{
+    width: 85%;
+    min-height: 3rem;
+    margin: 1rem;
+    border-radius: 10px;
+    display: flex;
+    padding: 10px;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.meta{
+    /* background-color: aqua;  */
+    display: flex;
+
+}
+.meta p{
+    /* background-color: blue; */
+    margin: 0 5px 0 5px;
+    font-size: 12px;
+}
+
+.chat-message-div{
+    height: 68vh ;
+    width: 100%;
+}
+
+.footer{
+    height: 7vh;
+    width: 100%;
+}
+
+.form-div{
+    height: 100%;
+    width: 100%;
+    display: flex;
+}
+.form-div input{
+    flex: 80%;
+}
+.form-div button{
+    flex: 20%;
+}
