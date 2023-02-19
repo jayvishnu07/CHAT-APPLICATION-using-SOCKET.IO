@@ -1,34 +1,40 @@
 import React, { useEffect, useState } from 'react'
 import './/Chat.css'
 import moment from 'moment'
-import { v4 as uuidv4 } from 'uuid';
 import { RiSendPlaneFill } from 'react-icons/ri';
 import { FaUser } from 'react-icons/fa';
 import { BsDoorOpenFill } from 'react-icons/bs';
 import { GiExitDoor } from 'react-icons/gi';
 
-const Chat = ({ socket, name, roomId }) => {
+const Chat = ({ socket, name, roomId ,setShowChat }) => {
     const [msg, setMsg] = useState("")
     const [chatList, setChatList] = useState([])
 
     useEffect(() => {
         socket.on('message', (message) => {
-            // setChatList((prev)=>[...prev,message])
             setChatList((prev) => [...prev, message])
-        })
-        socket.on('receive_message', (data) => {
-            console.log(data);
-            setChatList((prev) => [...prev, data])
+            // document.querySelector(".form-div input").focus()
         })
     }, [socket])
 
-    const sendMessage = async () => {
+
+    useEffect(() => {
+
+        let ele = document.querySelector(".chat-message-div")
+        if (ele) {
+            ele.scrollTop = ele.scrollHeight
+        }
+    }, [chatList])
+
+
+    const sendMessage = async (e) => {
+        e.preventDefault()
         if (msg !== "") {
             const payload = {
-                id: uuidv4(),
                 name: name,
                 roomId: roomId,
                 message: msg,
+                type : 'message',
                 time: moment().format('h:mm a')
             }
             console.log("sent=>", payload);
@@ -37,6 +43,13 @@ const Chat = ({ socket, name, roomId }) => {
             console.log(chatList);
             setMsg("")
         }
+
+    }
+
+    const leaveRoomHandler = () => {
+        socket.disconnect();
+        setShowChat(false);
+        console.log('clicked');
     }
 
     return (
@@ -52,13 +65,13 @@ const Chat = ({ socket, name, roomId }) => {
                         <p id='user-info-title'><BsDoorOpenFill /> Room Name</p>
                         <p id='user-info-value'>{roomId}</p>
                     </div>
-                    <button type='button' ><GiExitDoor id='leave-btn-logo' /> Leave Room</button>
+                    <button type='button' onClick={leaveRoomHandler} ><GiExitDoor id='leave-btn-logo' /> Leave Room</button>
                 </div>
                 <div className="parent-chatting-div">
                     <div className="chat-message-div">
-                        {chatList.map((res) => {
+                        {chatList.map((res, key) => {
                             return (
-                                <div className='chat-message-item' key={res.id} >
+                                <div className={res.type === 'notification' ? 'chat-message-item' : res.name === name ? 'me' : 'others'} key={key} >
                                     {res.message}
                                     <div className="meta">
                                         <p>{res.name}</p>
@@ -69,9 +82,9 @@ const Chat = ({ socket, name, roomId }) => {
                         })}
                     </div>
                     <div className="footer">
-                        <form className='form-div'>
+                        <form className='form-div' onSubmit={sendMessage} >
                             <input type="text" value={msg} onChange={(e) => { setMsg(e.target.value) }} placeholder='Type your message...' />
-                            <button type='button' onClick={sendMessage} >Send
+                            <button type='button' onClick={sendMessage}  >Send
                                 <RiSendPlaneFill id='send-btn-logo' />
                             </button>
                         </form>

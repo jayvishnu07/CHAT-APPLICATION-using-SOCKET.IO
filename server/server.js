@@ -17,6 +17,7 @@ io.on('connection', (socket)=>{
     //Joining the room
     socket.on('join-chat',(data)=>{
             socket.join(data.roomId)
+            socket.name = data.name;
             //greetings
             socket.emit('message',FormatMessage(data,"Welcome to the Chat...!"))
     })
@@ -29,12 +30,17 @@ io.on('connection', (socket)=>{
 
     socket.on('send_message',(data)=>{
         console.log(data);
-        socket.to(data.roomId).emit('receive_message',data);
+        socket.to(data.roomId).emit('message',data);
     })
     //user disconnected
     // socket.on('disconnect',()=>{
-    //     io.emit('message',`${socket.id} left the chat`)
+    //     io.emit('message',FormatMessage(data,`${data.name} left the chat...!`)
     // })
+
+    socket.on('disconnect',()=>{
+        io.emit('message',FormatMessage(socket,`${socket.name} left the chat...!`))
+    })
+
 })
 
 server.listen('8080',()=>{console.log("server started...")})
