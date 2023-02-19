@@ -13,6 +13,8 @@
     justify-content: space-between;
     background-color: #85586F;
     border-radius: 10px;
+    overflow: hidden    ;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
 }
 .header{
     height: 10vh;
@@ -21,6 +23,8 @@
     align-items: center;
     justify-content: space-between;
     padding: 10px 25px 10px 15px;
+    color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
 }
 .header h1{
 }
@@ -37,21 +41,45 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px 0 20px 0;
+
 }
 .user-room-info-div{
     padding: 10px;
     width: 100%;
+    color: #ffffff;
+    font-weight: normal;
+}
+#leave-btn-logo{
+    font-size: 20px;
+    color: #85586F;
 }
 .users-rooms-info-parent-div button{
     padding: 10px;
     border-radius: 5px;
-    color: #FFF;
+    color: #85586F;
+    background-color: #F8EDE3;
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-.users-rooms-info-parent-div h4{
-    margin: 10px 0 10px 0;
+.users-rooms-info-parent-div button:hover{
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
 }
-.users-rooms-info-parent-div h5{
-    padding: 0 5px 0 5px;
+.users-rooms-info-parent-div button:active{
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+}
+.users-rooms-info-parent-div button:focus{
+    outline: none;
+}
+#user-info-title{
+    margin: 15px 0 10px 0;
+    font-size: 17px;
+}
+#user-info-value{
+    padding: 0 10px 0 20px;
+    font-size: 13px;
 }
 .parent-chatting-div{
     flex: 75%;
@@ -62,6 +90,7 @@
     align-items: center;
     flex-direction: column;
     overflow-y: scroll;
+    background-color: #F8EDE3;
 }
 
 .chat-message-div::-webkit-scrollbar{
@@ -77,6 +106,7 @@
     padding: 10px;
     flex-direction: column;
     justify-content: center;
+    background-color: #DFD3C3;
 }
 
 .meta{
@@ -104,10 +134,38 @@
     height: 100%;
     width: 100%;
     display: flex;
+    box-shadow: rgba(0, 0, 0, 0.635) 10px 20px 10px 0px, rgba(0, 0, 0, 0.571) 5px 0px 15px 2px;
 }
 .form-div input{
     flex: 80%;
+    padding: 0 20px 0 20px;
+    border: none;
+    background-color: #F8EDE3;
+}
+.form-div input:focus{
+    outline: none;
 }
 .form-div button{
     flex: 20%;
+    background-color: #85586F;
+    border: none;
+    color: #ffffff;
+    font-size: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.form-div button:hover{
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+}
+.form-div button:active{
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+}
+.form-div button:focus{
+    outline: none;
+}
+#send-btn-logo{
+    font-size: 25px;
+    margin: 0 0 3px 10px;
+    color: #ffffff  ;
 }
