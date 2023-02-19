@@ -13,7 +13,6 @@ const Chat = ({ socket, name, roomId ,setShowChat }) => {
     useEffect(() => {
         socket.on('message', (message) => {
             setChatList((prev) => [...prev, message])
-            // document.querySelector(".form-div input").focus()
         })
     }, [socket])
 
@@ -37,10 +36,8 @@ const Chat = ({ socket, name, roomId ,setShowChat }) => {
                 type : 'message',
                 time: moment().format('h:mm a')
             }
-            console.log("sent=>", payload);
             await socket.emit('send_message', payload)
             setChatList((list) => [...list, payload])
-            console.log(chatList);
             setMsg("")
         }
 
@@ -49,7 +46,6 @@ const Chat = ({ socket, name, roomId ,setShowChat }) => {
     const leaveRoomHandler = () => {
         socket.disconnect();
         setShowChat(false);
-        console.log('clicked');
     }
 
     return (

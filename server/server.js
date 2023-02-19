@@ -24,19 +24,13 @@ io.on('connection', (socket)=>{
     
     //Notifying other users
     socket.on('notify-other-user',(data)=>{
-        console.log(data);
         socket.to(data.roomId).emit('message', FormatMessage(data,`${data.name} joined the chat`));
     })
 
     socket.on('send_message',(data)=>{
-        console.log(data);
         socket.to(data.roomId).emit('message',data);
     })
     //user disconnected
-    // socket.on('disconnect',()=>{
-    //     io.emit('message',FormatMessage(data,`${data.name} left the chat...!`)
-    // })
-
     socket.on('disconnect',()=>{
         io.emit('message',FormatMessage(socket,`${socket.name} left the chat...!`))
     })

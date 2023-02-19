@@ -25,13 +25,16 @@ body {
   border-radius: 10px;
   color: #ffffff;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+}
 
+.join-container-div h2{
+  margin-bottom: 1.5rem;
 }
 
 .join-container-div input {
   width: 80%;
   height: 2rem;
-  margin: 7px;
+  margin: .7rem;
   border: none;
   border-radius: 5px;
   padding: 5px;
