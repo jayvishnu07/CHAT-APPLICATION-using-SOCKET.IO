@@ -71,11 +71,9 @@ const Chat = ({ socket, name, roomId ,setShowChat }) => {
                         {chatList.map((res, key) => {
                             return (
                                 <div className={res.type === 'notification' ? 'chat-message-item' : res.name === name ? 'me' : 'others'} key={key} >
+                                    <p id= {res.type === 'notification' ? 'sender-name-notification' : 'sender-name-message'} >~ {res.name}</p>
                                     {res.message}
-                                    <div className="meta">
-                                        <p>{res.name}</p>
-                                        <p>{res.time}</p>
-                                    </div>
+                                    <p id= {res.type === 'notification' ? 'send-time-notification' : 'send-time-message'} >{res.time}</p>
                                 </div>
                             )
                         })}
