@@ -1,21 +1,25 @@
 import './App.css';
 import io from 'socket.io-client'
-import { useState } from 'react';
+import { useState  } from 'react';
 import Chat from './Components/Chat';
 
-const socket = io.connect('http://localhost:8080')
+//web.archieve.org
 
-
+let socket;
 function App() {
 
   const [name, setName] = useState("")
   const [roomId, setRoomId] = useState("")
   const [showChat, setShowChat] = useState(false)
 
-  const joinRoom = () => {
+
+  const connectAndJoinRoom = () => {
     if (name !== "" && roomId !== "") {
-      setShowChat(true);
+      // here is the link to server... this link should refer the server
+      socket = io.connect('http://192.168.9.193:8080')
+      // socket = io.connect('http://localhost:8080')
       socket.emit('join-chat', { name, roomId });
+      setShowChat(true);
       socket.emit('notify-other-user', { name, roomId });
     }
   }
@@ -29,9 +33,9 @@ function App() {
           (
             <div className="join-container-div">
               <h2>Chat Application</h2>
-              <input type="text" placeholder='Name' onChange={(e) => { setName(e.target.value) }} onKeyDown={(e) => { e.key === "Enter" && joinRoom() }} />
-              <input type="text" placeholder='Room' onChange={(e) => { setRoomId(e.target.value) }} onKeyDown={(e) => { e.key === "Enter" && joinRoom() }} />
-              <button onClick={joinRoom}  > Join Room </button>
+              <input type="text" placeholder='Name' onChange={(e) => { setName(e.target.value) }} onKeyDown={(e) => { e.key === "Enter" && connectAndJoinRoom() }} />
+              <input type="text" placeholder='Room' onChange={(e) => { setRoomId(e.target.value) }} onKeyDown={(e) => { e.key === "Enter" && connectAndJoinRoom() }} />
+              <button onClick={connectAndJoinRoom}  > Join Room </button>
             </div>
           )
       }

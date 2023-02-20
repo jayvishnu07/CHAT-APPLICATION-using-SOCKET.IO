@@ -1,11 +1,11 @@
-*{
+* {
     margin: 0;
     padding: 0;
     /* border: 1px solid red; */
     box-sizing: border-box;
 }
-.main-div
-{
+
+.main-div {
     width: 85vw;
     height: 85vh;
     display: flex;
@@ -13,10 +13,11 @@
     justify-content: space-between;
     background-color: #85586F;
     border-radius: 10px;
-    overflow: hidden    ;
+    overflow: hidden;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
 }
-.header{
+
+.header {
     height: 10vh;
     width: 100%;
     display: flex;
@@ -27,12 +28,17 @@
     box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
 }
 
-.patent-body{
+.leave-button-for-phone{
+    display: none;
+}
+
+.patent-body {
     width: 100%;
     height: 75vh;
     display: flex;
 }
-.users-rooms-info-parent-div{
+
+.users-rooms-info-parent-div {
     flex: 25%;
     display: flex;
     flex-direction: column;
@@ -41,17 +47,20 @@
     padding: 10px 0 20px 0;
 
 }
-.user-room-info-div{
+
+.user-room-info-div {
     padding: 10px;
     width: 100%;
     color: #ffffff;
     font-weight: normal;
 }
-#leave-btn-logo{
+
+#leave-btn-logo {
     font-size: 20px;
     color: #85586F;
 }
-.users-rooms-info-parent-div button{
+
+.users-rooms-info-parent-div button {
     padding: 10px;
     border-radius: 5px;
     color: #85586F;
@@ -62,27 +71,34 @@
     align-items: center;
     justify-content: center;
 }
-.users-rooms-info-parent-div button:hover{
+
+.users-rooms-info-parent-div button:hover {
     box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
 }
-.users-rooms-info-parent-div button:active{
+
+.users-rooms-info-parent-div button:active {
     box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
 }
-.users-rooms-info-parent-div button:focus{
+
+.users-rooms-info-parent-div button:focus {
     outline: none;
 }
-#user-info-title{
+
+#user-info-title {
     margin: 15px 0 10px 0;
     font-size: 17px;
 }
-#user-info-value{
+
+#user-info-value {
     padding: 0 10px 0 20px;
     font-size: 13px;
 }
-.parent-chatting-div{
+
+.parent-chatting-div {
     flex: 75%;
 }
-.chat-message-div{
+
+.chat-message-div {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -91,11 +107,11 @@
     background-color: #F8EDE3;
 }
 
-.chat-message-div::-webkit-scrollbar{
+.chat-message-div::-webkit-scrollbar {
     display: none;
 }
 
-.chat-message-item{
+.chat-message-item {
     width: 85%;
     margin: 1rem;
     border-radius: 10px;
@@ -106,7 +122,7 @@
     background-color: #DFD3C3;
 }
 
-.me{
+.me {
     width: 20vw;
     margin: 1rem 2rem 1rem 1rem;
     border-radius: 10px;
@@ -119,7 +135,7 @@
     overflow-wrap: break-word;
 }
 
-.others{
+.others {
     width: 20vw;
     margin: 1rem 1rem 1rem 2rem;
     border-radius: 10px;
@@ -133,43 +149,47 @@
     overflow-wrap: break-word;
 }
 
-.meta{
+.meta {
     /* background-color: aqua;  */
     display: flex;
 
 }
-.meta p{
+
+.meta p {
     /* background-color: blue; */
     margin: 0 5px 0 5px;
     font-size: 12px;
 }
 
-.chat-message-div{
-    height: 68vh ;
+.chat-message-div {
+    height: 68vh;
     width: 100%;
 }
 
-.footer{
+.footer {
     height: 7vh;
     width: 100%;
 }
 
-.form-div{
+.form-div {
     height: 100%;
     width: 100%;
     display: flex;
     box-shadow: rgba(0, 0, 0, 0.635) 10px 20px 10px 0px, rgba(0, 0, 0, 0.571) 5px 0px 15px 2px;
 }
-.form-div input{
+
+.form-div input {
     flex: 80%;
     padding: 0 20px 0 20px;
     border: none;
     background-color: #F8EDE3;
 }
-.form-div input:focus{
+
+.form-div input:focus {
     outline: none;
 }
-.form-div button{
+
+.form-div button {
     flex: 20%;
     background-color: #85586F;
     border: none;
@@ -179,17 +199,80 @@
     justify-content: center;
     align-items: center;
 }
-.form-div button:hover{
+
+.form-div button:hover {
     box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
 }
-.form-div button:active{
+
+.form-div button:active {
     box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
 }
-.form-div button:focus{
+
+.form-div button:focus {
     outline: none;
 }
-#send-btn-logo{
+
+#send-btn-logo {
     font-size: 25px;
     margin: 0 0 3px 10px;
-    color: #ffffff  ;
+    color: #ffffff;
+}
+
+
+@media only screen and (max-device-width: 1000px) {}
+
+@media only screen and (max-device-width: 640px) {
+    .main-div {
+        width: 100vw;
+        height: 94vh;
+        position: fixed;
+        top: 0;
+        right: 0;
+        border-radius: 0px;
+    }
+
+    .header {
+        font-size: 10px;
+    }
+    
+    .users-rooms-info-parent-div {
+        display: none;
+    }
+    
+    .user-room-info-div {
+        display: none;
+    }
+    .leave-button-for-phone{
+        display: block;
+        padding: 10px;
+        border-radius: 5px;
+        color: #85586F;
+        background-color: #F8EDE3;
+        border: none;
+        box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+    }
+    .chat-message-div{
+        transform: translateY(-10vh);
+        height: 78vh;
+        width: 100%;
+    }
+    .form-div {
+      transform: translateY(-10vh);
+    }
+
+    .form-div input {
+        flex: 80%;
+        padding: 0 20px 0 20px;
+        border: none;
+        background-color: #F8EDE3;
+    }
+
+    .form-div button {
+        
+    }
+
 }

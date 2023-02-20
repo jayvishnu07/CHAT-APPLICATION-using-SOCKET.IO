@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import './/Chat.css'
 import moment from 'moment'
 import { RiSendPlaneFill } from 'react-icons/ri';
@@ -7,10 +7,12 @@ import { BsDoorOpenFill } from 'react-icons/bs';
 import { GiExitDoor } from 'react-icons/gi';
 
 const Chat = ({ socket, name, roomId ,setShowChat }) => {
+    const focusRef = useRef()
     const [msg, setMsg] = useState("")
     const [chatList, setChatList] = useState([])
 
     useEffect(() => {
+        if (socket)
         socket.on('message', (message) => {
             setChatList((prev) => [...prev, message])
         })
@@ -19,9 +21,9 @@ const Chat = ({ socket, name, roomId ,setShowChat }) => {
 
     useEffect(() => {
 
-        let ele = document.querySelector(".chat-message-div")
-        if (ele) {
-            ele.scrollTop = ele.scrollHeight
+        let scroll = document.querySelector(".chat-message-div")
+        if (scroll) {
+            scroll.scrollTop = scroll.scrollHeight
         }
     }, [chatList])
 
@@ -40,7 +42,7 @@ const Chat = ({ socket, name, roomId ,setShowChat }) => {
             setChatList((list) => [...list, payload])
             setMsg("")
         }
-
+            focusRef.current.focus();
     }
 
     const leaveRoomHandler = () => {
@@ -52,6 +54,7 @@ const Chat = ({ socket, name, roomId ,setShowChat }) => {
         <div className='main-div' >
             <div className="header">
                 <h1>Chat Application</h1>
+                <button type='button' onClick={leaveRoomHandler} className='leave-button-for-phone' ><GiExitDoor id='leave-btn-logo' /> Leave Room</button>
             </div>
             <div className="patent-body">
                 <div className="users-rooms-info-parent-div">
@@ -79,7 +82,7 @@ const Chat = ({ socket, name, roomId ,setShowChat }) => {
                     </div>
                     <div className="footer">
                         <form className='form-div' onSubmit={sendMessage} >
-                            <input type="text" value={msg} onChange={(e) => { setMsg(e.target.value) }} placeholder='Type your message...' />
+                            <input type="text" value={msg} ref={focusRef} onChange={(e) => { setMsg(e.target.value) }} placeholder='Type your message...' />
                             <button type='button' onClick={sendMessage}  >Send
                                 <RiSendPlaneFill id='send-btn-logo' />
                             </button>
