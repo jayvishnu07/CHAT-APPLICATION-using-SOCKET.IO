@@ -1,22 +1,28 @@
 import React, { useEffect, useState, useRef } from 'react'
 import './/Chat.css'
 import moment from 'moment'
+import axios from 'axios'
 import { RiSendPlaneFill } from 'react-icons/ri';
 import { FaUser } from 'react-icons/fa';
 import { BsDoorOpenFill } from 'react-icons/bs';
 import { GiExitDoor } from 'react-icons/gi';
+import { IoIosPeople } from 'react-icons/io';
+
 
 const Chat = ({ socket, name, roomId ,setShowChat }) => {
     const focusRef = useRef()
     const [msg, setMsg] = useState("")
     const [chatList, setChatList] = useState([])
+    const [userNames, setUserNames] = useState([])
+
 
     useEffect(() => {
         if (socket)
         socket.on('message', (message) => {
             setChatList((prev) => [...prev, message])
         })
-    }, [socket])
+        console.log(userNames);
+    }, [socket,userNames])
 
 
     useEffect(() => {
@@ -45,6 +51,18 @@ const Chat = ({ socket, name, roomId ,setShowChat }) => {
             focusRef.current.focus();
     }
 
+    const getUserNames = () => {
+        axios.get('/get-users')
+            .then(res => {
+                setUserNames([])
+                res.data.forEach((item) => {
+                    if (item.roomId === chatList[0].roomId) {
+                        setUserNames(prev => [...prev, item]);
+                    }
+                })
+            })
+    }
+
     const leaveRoomHandler = () => {
         socket.disconnect();
         setShowChat(false);
@@ -55,6 +73,7 @@ const Chat = ({ socket, name, roomId ,setShowChat }) => {
             <div className="header">
                 <h1>Chat Application</h1>
                 <button type='button' onClick={leaveRoomHandler} className='leave-button-for-phone' ><GiExitDoor id='leave-btn-logo' /> Leave Room</button>
+                <button type='button' onClick={getUserNames} className='show-members-button' ><IoIosPeople id='leave-btn-logo' />Show Members </button>
             </div>
             <div className="patent-body">
                 <div className="users-rooms-info-parent-div">

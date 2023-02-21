@@ -16,8 +16,8 @@ function App() {
   const connectAndJoinRoom = () => {
     if (name !== "" && roomId !== "") {
       // here is the link to server... this link should refer the server
-      socket = io.connect('http://192.168.9.193:8080')
-      // socket = io.connect('http://localhost:8080')
+      // socket = io.connect('http://192.168.9.193:8080')
+      socket = io.connect('http://localhost:8080')
       socket.emit('join-chat', { name, roomId });
       setShowChat(true);
       socket.emit('notify-other-user', { name, roomId });

@@ -1,6 +1,19 @@
 const moment = require('moment')
 
-const FormatMessage = (data,message) => {
+function FormatWelcomeMessage(data,message){
+  console.log("sad =>",data);
+  return (
+    {
+        name : data.name,
+        roomId : data.roomId,
+        message : message,
+        type : "notification",
+        time : moment().format('h:mm a')
+    }
+  )
+}
+
+function FormatExitMessage (data,message){
   return (
     {
         name : data.name,
@@ -11,4 +24,15 @@ const FormatMessage = (data,message) => {
   )
 }
 
-module.exports = FormatMessage;
+function FormatNotificationMessage(data,message){
+  return (
+    {
+        name : data.name,
+        message : message,
+        type : "notification",
+        time : moment().format('h:mm a')
+    }
+  )
+}
+
+module.exports = {FormatWelcomeMessage, FormatExitMessage,FormatNotificationMessage }
