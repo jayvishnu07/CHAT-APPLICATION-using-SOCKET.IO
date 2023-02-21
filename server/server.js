@@ -22,6 +22,7 @@ io.on('connection', (socket) => {
     socket.on('join-chat', (data) => {
         socket.join(data.roomId)
         socket.name = data.name;
+        socket.roomId = data.roonId;
         let user_names_object = {name : data.name, roomId : data.roomId}
         user_names_array.push(user_names_object);
         console.log("user_names_array ",user_names_array);

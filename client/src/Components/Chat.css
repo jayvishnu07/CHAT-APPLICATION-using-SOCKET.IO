@@ -26,6 +26,7 @@
     padding: 10px 25px 10px 15px;
     color: #fff;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+    user-select: none;
 }
 
 .leave-button-for-phone{
@@ -53,6 +54,49 @@
     width: 100%;
     color: #ffffff;
     font-weight: normal;
+    margin-bottom: 1rem;
+    user-select: none;
+}
+
+.members-outer-parent-div{
+    width: 100%;
+    height: 50%;
+    color: #ffffff;
+}
+
+.members-outer-parent-div p{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 0 0 5px;
+}
+
+.members-outer-parent-div #members-logo{
+    font-size: 25px;
+    margin-right: 5px;
+
+}
+
+.members-inner-parent-div{
+    height: 100%;
+    overflow-y: scroll;
+    user-select: none;
+
+}
+.members-inner-parent-div p{
+    margin: 10px 20px 0px 30px ;
+}
+.members-inner-parent-div::-webkit-scrollbar{
+    display: none;
+}
+#members-logo{
+    font-size: 20px;
+    margin-left: 5px;
+}
+
+
+.members-item-div #member-logo{
+    margin: 0 10px 0 0;
 }
 
 #leave-btn-logo {
@@ -70,6 +114,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: 2rem;
 }
 
 .users-rooms-info-parent-div button:hover {
