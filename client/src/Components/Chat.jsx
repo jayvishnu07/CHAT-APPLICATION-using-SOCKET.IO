@@ -22,17 +22,28 @@ const Chat = ({ socket, name, roomId, setShowChat }) => {
             socket.on('message', (message) => {
                 setChatList((prev) => [...prev, message])
             })
+            console.log("called out");
+            
+            socket.on('get-users',(data)=>{
+            console.log("called in");
+            if(roomId === data.roomId){
+                setUserNames((prev)=>[...prev,data])
+            }
+        })
+        
+        
     }, [socket])
 
-
     useEffect(() => {
-
         let scroll = document.querySelector(".chat-message-div")
         if (scroll) {
             scroll.scrollTop = scroll.scrollHeight
         }
     }, [chatList])
 
+useEffect(()=>{
+    console.log(userNames);
+})
 
     const sendMessage = async (e) => {
         e.preventDefault()
@@ -40,6 +51,7 @@ const Chat = ({ socket, name, roomId, setShowChat }) => {
             const payload = {
                 name: name,
                 roomId: roomId,
+                socketId : socket.id,
                 message: msg,
                 type: 'message',
                 time: moment().format('h:mm a')
@@ -51,21 +63,7 @@ const Chat = ({ socket, name, roomId, setShowChat }) => {
         focusRef.current.focus();
     }
 
-    const getUserNames = () => {
-        axios.get('/get-users')
-            .then(res => {
-                setUserNames([])
-                res.data.forEach((item) => {
-                    if (item.roomId === roomId) {
-                        setUserNames(prev => [...prev, item]);
-                    }
-                })
-            })
-    }
-
-
     useEffect(() => {
-        getUserNames()
         document.querySelector("#send-btn-logo path").setAttribute('stroke', '#fff')
     }, [chatList])
 
@@ -73,7 +71,6 @@ const Chat = ({ socket, name, roomId, setShowChat }) => {
         socket.disconnect();
         setShowChat(false);
     }
-    const style = { color: "white", fontSize: "1.5em" }
 
     return (
         <div className='main-div' >
@@ -95,7 +92,7 @@ const Chat = ({ socket, name, roomId, setShowChat }) => {
                             {
                                 userNames.map((data, index) => {
                                     return (
-                                        <div key={index} className='members-item-div' ><p><IoIosPerson id='member-logo' />{data.name} </p> </div>
+                                        <div key={index} className='members-item-div' ><p><IoIosPerson id='member-logo' />{data.userName} </p> </div>
                                     )
                                 })
                             }
