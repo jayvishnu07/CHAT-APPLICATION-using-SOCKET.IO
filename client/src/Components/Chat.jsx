@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import './/Chat.css'
 import moment from 'moment'
 import axios from 'axios'
-import { RiSendPlaneFill } from 'react-icons/ri';
+import { GrSend } from 'react-icons/gr';
 import { FaUser } from 'react-icons/fa';
 import { BsDoorOpenFill } from 'react-icons/bs';
 import { GiExitDoor } from 'react-icons/gi';
@@ -52,27 +52,28 @@ const Chat = ({ socket, name, roomId, setShowChat }) => {
     }
 
     const getUserNames = () => {
-        console.log("called");
         axios.get('/get-users')
             .then(res => {
                 setUserNames([])
                 res.data.forEach((item) => {
                     if (item.roomId === roomId) {
                         setUserNames(prev => [...prev, item]);
-                        console.log("getting inside");
                     }
                 })
             })
     }
 
+
     useEffect(() => {
         getUserNames()
+        document.querySelector("#send-btn-logo path").setAttribute('stroke', '#fff')
     }, [chatList])
 
     const leaveRoomHandler = () => {
         socket.disconnect();
         setShowChat(false);
     }
+    const style = { color: "white", fontSize: "1.5em" }
 
     return (
         <div className='main-div' >
@@ -88,7 +89,6 @@ const Chat = ({ socket, name, roomId, setShowChat }) => {
                         <p id='user-info-title'><BsDoorOpenFill /> Room Name</p>
                         <p id='user-info-value'>{roomId}</p>
                     </div>
-
                     <div className="members-outer-parent-div">
                         <p><IoIosPeople id='members-logo' /> Room Members</p>
                         <div className="members-inner-parent-div">
@@ -121,7 +121,7 @@ const Chat = ({ socket, name, roomId, setShowChat }) => {
                         <form className='form-div' onSubmit={sendMessage} >
                             <input type="text" value={msg} ref={focusRef} onChange={(e) => { setMsg(e.target.value) }} placeholder='Type your message...' />
                             <button type='button' onClick={sendMessage}  >Send
-                                <RiSendPlaneFill id='send-btn-logo' />
+                                <GrSend color='red' id='send-btn-logo' />
                             </button>
                         </form>
                     </div>

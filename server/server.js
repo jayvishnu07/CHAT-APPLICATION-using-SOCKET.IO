@@ -25,7 +25,6 @@ io.on('connection', (socket) => {
         socket.roomId = data.roonId;
         let user_names_object = {name : data.name, roomId : data.roomId}
         user_names_array.push(user_names_object);
-        console.log("user_names_array ",user_names_array);
         //greetings
         socket.emit('message', FormatWelcomeMessage(data, `Hi ${data.name} 🖐️ Welcome to the ${data.roomId} room...!`))
     })
@@ -41,7 +40,6 @@ io.on('connection', (socket) => {
     //user disconnected
     socket.on('disconnect', () => {
         user_names_array = user_names_array.filter((prev)=>prev.name != socket.name)
-        console.log("users = >",user_names_array);
         io.emit('message', FormatExitMessage(socket, `"${socket.name}" left the chat...!`))
     })
 
@@ -51,4 +49,4 @@ app.get('/get-users',(req,res)=>{
     res.json(user_names_array)
 })
 
-server.listen('8080', () => { console.log("server started...") })
+server.listen('8080')
