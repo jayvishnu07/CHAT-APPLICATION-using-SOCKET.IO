@@ -1,6 +1,6 @@
 import './App.css';
 import io from 'socket.io-client'
-import { useState  } from 'react';
+import { useEffect, useState  } from 'react';
 import Chat from './Components/Chat';
 
 //web.archieve.org
@@ -8,18 +8,30 @@ import Chat from './Components/Chat';
 let socket;
 function App() {
 
-  const [name, setName] = useState("")
-  const [roomId, setRoomId] = useState("")
+  const [name, setName] = useState(()=>{
+    return localStorage.getItem('name') || ""
+  })
+  const [roomId, setRoomId] = useState(()=>{
+    return localStorage.getItem('roomId') || ""
+  })
   const [showChat, setShowChat] = useState(false)
 
+  useEffect(() => {
+    if(name !== "" && roomId !== ""){
+      connectAndJoinRoom()
+    }
+  }, [])
+  
 
   const connectAndJoinRoom = () => {
-    if (name !== "" && roomId !== "") {
+    if ((name !== "" && name !== undefined) && ( roomId !== "" && roomId !== undefined)) {
       // here is the link to server... this link should refer the server
       // socket = io.connect('http://192.168.9.193:8080')
       // socket = io.connect('http://localhost:8080')
       socket = io.connect('http://localhost:8080')
       socket.emit('join-chat', { name, roomId });
+      localStorage.setItem("name" , name );
+      localStorage.setItem("roomId" , roomId );
       setShowChat(true);
       socket.emit('notify-other-user', { name, roomId });
     }

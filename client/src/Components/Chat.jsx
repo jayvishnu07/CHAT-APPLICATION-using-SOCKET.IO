@@ -1,12 +1,11 @@
 import React, { useEffect, useState, useRef } from 'react'
 import './/Chat.css'
 import moment from 'moment'
-import axios from 'axios'
 import { GrSend } from 'react-icons/gr';
 import { FaUser } from 'react-icons/fa';
 import { BsDoorOpenFill } from 'react-icons/bs';
 import { GiExitDoor } from 'react-icons/gi';
-import { IoIosPeople ,IoIosPerson } from 'react-icons/io';
+import { IoIosPeople, IoIosPerson } from 'react-icons/io';
 import { FcApproval } from "react-icons/fc";
 
 
@@ -22,16 +21,14 @@ const Chat = ({ socket, name, roomId, setShowChat }) => {
             socket.on('message', (message) => {
                 setChatList((prev) => [...prev, message])
             })
-            console.log("called out");
-            
-            socket.on('get-users',(data)=>{
-            console.log("called in");
-            if(roomId === data.roomId){
-                setUserNames((prev)=>[...prev,data])
-            }
+        socket.on('get-users', (data) => {
+            setUserNames([])
+            data.map((item) => {
+                if (item.roomId === roomId) {
+                    setUserNames(prev => [...prev, item])
+                }
+            })
         })
-        
-        
     }, [socket])
 
     useEffect(() => {
@@ -41,9 +38,19 @@ const Chat = ({ socket, name, roomId, setShowChat }) => {
         }
     }, [chatList])
 
-useEffect(()=>{
-    console.log(userNames);
-})
+    useEffect(() => {
+        console.log("top");
+        socket.emit("message-after-refresh", { name: name, roomId: roomId })
+        console.log("middle");
+        socket.on('get-message-after-refresh', (data) => {
+            // setChatList(data)
+            console.log(" from chat ", data);
+            setChatList(data)
+        })
+        console.log("bottom");
+    }, [])
+
+
 
     const sendMessage = async (e) => {
         e.preventDefault()
@@ -51,7 +58,7 @@ useEffect(()=>{
             const payload = {
                 name: name,
                 roomId: roomId,
-                socketId : socket.id,
+                socketId: socket.id,
                 message: msg,
                 type: 'message',
                 time: moment().format('h:mm a')
@@ -104,6 +111,10 @@ useEffect(()=>{
                 </div>
                 <div className="parent-chatting-div">
                     <div className="chat-message-div">
+                        <div className='chat-message-item'>
+                            {`Hi ${name} 🖐️ Welcome to the ${roomId} room...!`}
+                            <p id='send-time-notification'>{moment().format('h:mm a')}</p>
+                        </div>
                         {chatList.map((res, key) => {
                             return (
                                 <div className={res.type === 'notification' ? 'chat-message-item' : res.name === name ? 'me' : 'others'} key={key} >
