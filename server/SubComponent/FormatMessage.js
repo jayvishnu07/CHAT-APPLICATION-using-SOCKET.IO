@@ -7,7 +7,7 @@ function FormatWelcomeMessage(data, socketId, message) {
       roomId: data.roomId,
       socketId: socketId,
       message: message,
-      type: "notification",
+      type: "greetings",
       time: moment().format('h:mm a')
     }
   )
@@ -21,7 +21,7 @@ function FormatNotificationMessage(data, socketId, message) {
       roomId: data.roomId,
       socketId: socketId,
       message: message,
-      type: "notification",
+      type: "notify-others",
       time: moment().format('h:mm a')
     }
   )
@@ -33,7 +33,7 @@ function FormatExitMessage(data, message) {
       roomId: data.roomId,
       socketId: data.id,
       message: message,
-      type: "notification",
+      type: "endcard",
       time: moment().format('h:mm a')
     }
   )

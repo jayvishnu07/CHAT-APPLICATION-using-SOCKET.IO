@@ -78,7 +78,27 @@ io.on('connection', (socket) => {
         socket.join(data.roomId)
         socket.name = data.name;
         socket.roomId = data.roomId;
-
+        let postObj = FormatWelcomeMessage(data, socket.id, `Hi ${data.name} 🖐️ Welcome to the ${data.roomId} room...!`);
+        const createMessage = async () => {
+            try {
+                const chat = new Chat({
+                    name: postObj.name,
+                    roomId: postObj.roomId,
+                    socketId: postObj.socketId,
+                    message: postObj.message,
+                    type: postObj.type,
+                    time: postObj.time
+                })
+                const result = await chat.save();
+                //emit result to client
+                // console.log("from server", FormatNotificationMessage(data, socket.id, `"${data.name}" joined the chat`));
+                // console.log("from db", result);
+                socket.emit('message', result)
+            } catch (error) {
+                console.log("Error Occured in notification......", error.message);
+            }
+        }
+        createMessage();
         //setting usernames in database       
 
         const createUsers = async (name, socket) => {
@@ -161,7 +181,7 @@ io.on('connection', (socket) => {
         const getMessages = async () => {
             try {
                 const chat = await Chat
-                    .find({ roomId: data.roomId ,type : "message" })
+                    .find({ roomId: data.roomId})
                     .sort("time")
                 console.log("messages == => ", chat);
                 console.log(socket.id);

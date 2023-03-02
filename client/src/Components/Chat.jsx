@@ -50,6 +50,7 @@ const Chat = ({ socket, name, roomId, setShowChat }) => {
         console.log("bottom");
     }, [])
 
+    console.log(chatList);
 
 
     const sendMessage = async (e) => {
@@ -75,7 +76,9 @@ const Chat = ({ socket, name, roomId, setShowChat }) => {
     }, [chatList])
 
     const leaveRoomHandler = () => {
+
         socket.disconnect();
+        localStorage.clear();
         setShowChat(false);
     }
 
@@ -111,17 +114,16 @@ const Chat = ({ socket, name, roomId, setShowChat }) => {
                 </div>
                 <div className="parent-chatting-div">
                     <div className="chat-message-div">
-                        <div className='chat-message-item'>
-                            {`Hi ${name} 🖐️ Welcome to the ${roomId} room...!`}
-                            <p id='send-time-notification'>{moment().format('h:mm a')}</p>
-                        </div>
                         {chatList.map((res, key) => {
                             return (
-                                <div className={res.type === 'notification' ? 'chat-message-item' : res.name === name ? 'me' : 'others'} key={key} >
-                                    <p id={res.type === 'notification' ? 'sender-name-notification' : 'sender-name-message'} >~ {res.name}</p>
-                                    {res.message}
-                                    <p id={res.type === 'notification' ? 'send-time-notification' : 'send-time-message'} >{res.time}</p>
-                                </div>
+                                (( (res.type === 'greetings' && res.name === name ) || (res.type === 'message') || (res.type === 'notify-others' && res.name !== name) || (res.type === 'endcard' && res.name !== name ) )&& (res.roomId === roomId) ) ?
+                                    (<div className={res.type === ( 'endcard') ? 'chat-message-item' : res.type ==='notify-others' ? 'chat-message-item' : res.type === 'greetings' ? 'chat-message-item' :   res.name === name ? 'me' : 'others'} key={key} >
+                                        <p id={res.type === ('notify-others' || 'endcard') ? 'sender-name-notification' : 'sender-name-message'} >~ {res.name}</p>
+                                        {res.message}
+                                        <p id={res.type === ('notify-others' || 'endcard') ? 'send-time-notification' : 'send-time-message'} >{res.time}</p>
+                                    </div>)
+                                    :
+                                    ''
                             )
                         })}
                     </div>

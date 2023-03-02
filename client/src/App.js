@@ -36,7 +36,7 @@ function App() {
       socket.emit('notify-other-user', { name, roomId });
     }
   }
-
+  
   return (
     <div className="App">
       {
