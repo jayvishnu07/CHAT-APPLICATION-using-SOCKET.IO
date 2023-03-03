@@ -39,18 +39,13 @@ const Chat = ({ socket, name, roomId, setShowChat }) => {
     }, [chatList])
 
     useEffect(() => {
-        console.log("top");
         socket.emit("message-after-refresh", { name: name, roomId: roomId })
-        console.log("middle");
         socket.on('get-message-after-refresh', (data) => {
             // setChatList(data)
-            console.log(" from chat ", data);
             setChatList(data)
         })
-        console.log("bottom");
     }, [])
 
-    console.log(chatList);
 
 
     const sendMessage = async (e) => {

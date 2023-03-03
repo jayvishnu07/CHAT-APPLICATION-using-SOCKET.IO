@@ -91,8 +91,6 @@ io.on('connection', (socket) => {
                 })
                 const result = await chat.save();
                 //emit result to client
-                // console.log("from server", FormatNotificationMessage(data, socket.id, `"${data.name}" joined the chat`));
-                // console.log("from db", result);
                 socket.emit('message', result)
             } catch (error) {
                 console.log("Error Occured in notification......", error.message);
@@ -176,15 +174,12 @@ io.on('connection', (socket) => {
     // get message while refresh
     socket.on("message-after-refresh", (data) => {
 
-        console.log("data-----",data);
 
         const getMessages = async () => {
             try {
                 const chat = await Chat
                     .find({ roomId: data.roomId})
                     .sort("time")
-                console.log("messages == => ", chat);
-                console.log(socket.id);
 
                 socket.emit("get-message-after-refresh", chat)
             } catch (error) {
@@ -214,13 +209,9 @@ io.on('connection', (socket) => {
                 const result = await chat.save();
                 //emit result to client
                 // console.log("from server", FormatNotificationMessage(data, socket.id, `"${data.name}" joined the chat`));
-                console.log("from db", result);
                 io.emit('message', result)
                 try {
-                    console.log("result====", result);
-                    console.log("result====", result._id);
                     const deleteditem = await Users.deleteOne({ socketId: result.socketId });
-                    console.log(" deleted ===> ", deleteditem);
                     const getUsers = await Users
                         .find()
                         .sort("name")
